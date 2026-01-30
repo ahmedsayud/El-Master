@@ -1,11 +1,8 @@
 "use client";
 
-import Header from './Header';
 import Image from 'next/image';
 import { Play } from 'lucide-react';
 import { useEffect, useState } from 'react';
-
-
 import { staticData } from '@/data/static-data';
 
 const Hero = () => {
@@ -17,7 +14,6 @@ const Hero = () => {
         const interval = setInterval(() => {
             setText((prev) => {
                 if (!isDeleting) {
-                    // كتابة
                     if (prev.length < hero.videoPlayText.length) {
                         return hero.videoPlayText.slice(0, prev.length + 1);
                     } else {
@@ -25,7 +21,6 @@ const Hero = () => {
                         return prev;
                     }
                 } else {
-                    // مسح
                     if (prev.length > 0) {
                         return hero.videoPlayText.slice(0, prev.length - 1);
                     } else {
@@ -34,16 +29,14 @@ const Hero = () => {
                     }
                 }
             });
-        }, 1000); // حرف كل ثانية
+        }, 1000);
 
         return () => clearInterval(interval);
     }, [isDeleting, hero.videoPlayText]);
 
     return (
         <div className="relative w-full min-h-[1000px] bg-cover bg-center bg-no-repeat overflow-hidden"
-            style={{ backgroundImage: "url('/images/vector-3.svg')" }}>
-
-            <Header />
+            style={{ backgroundImage: "url('/image/EDSA_NorthCoast03_CGI03_05 (2) (1)3107202513245505082025161147.webp1008202515570917082025120447 (1).webp')" }}>
 
             {/* Video Play Button */}
             <div className="container mx-auto px-12 mt-32 flex items-center gap-4">
@@ -65,8 +58,6 @@ const Hero = () => {
                         {hero.ctaButton}
                         <span className="text-xl">»</span>
                     </button>
-
-
                 </div>
 
                 {/* Left Side: Two Stacked Images (20% width) */}
@@ -81,12 +72,13 @@ const Hero = () => {
                         <Image src="/images/vector-3.svg" width={100} height={100}
                             alt="Image 2"
                             className="w-full h-full object-cover  rounded-lg"
-                        />                    </div>
+                        />
+                    </div>
                 </div>
             </div>
             {/* Stats Section */}
             <div className="w-full  px-12 grid grid-cols-2 md:grid-cols-4 gap-8 mt-10">
-                {hero.stats.map((stat, index) => (
+                {hero.stats.map((stat: any, index: number) => (
                     <div key={index} className="flex flex-col items-center md:items-start text-white">
                         <span className="text-lg text-gray-300 mb-1">{stat.label}</span>
                         <span className="text-4xl md:text-5xl font-bold">{stat.value}</span>
