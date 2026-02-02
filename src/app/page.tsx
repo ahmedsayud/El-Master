@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import CurrentLaunches from "@/components/CurrentLaunches";
 
 export default function Home() {
   return (
@@ -6,7 +7,7 @@ export default function Home() {
       <Hero />
 
       <main className="flex-grow">
-        
+        <CurrentLaunches />
       </main>
 
     </div>

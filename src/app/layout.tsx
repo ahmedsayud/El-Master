@@ -1,6 +1,18 @@
 import type { Metadata } from "next";
+import { Inter, Dancing_Script } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-suisse",
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const dancingScript = Dancing_Script({
+  subsets: ["latin"],
+  variable: "--font-dancing",
+  weight: ["400", "700"],
+});
 
 export const metadata: Metadata = {
   title: "المستر - حلول تعليمية",
@@ -14,8 +26,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar">
-      <body className="antialiased font-janna">
-        <Header />
+      <body className={`antialiased font-janna ${inter.variable} ${dancingScript.variable}`}>
+      
         {children}
       </body>
     </html>

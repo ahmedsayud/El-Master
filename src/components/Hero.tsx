@@ -2,13 +2,22 @@
 
 import Image from 'next/image';
 import { Play } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { staticData } from '@/data/static-data';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import Header from './Header';
 
 const Hero = () => {
     const { hero } = staticData;
     const [text, setText] = useState("");
     const [isDeleting, setIsDeleting] = useState(false);
+    const containerRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end start"]
+    });
+
+    const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -35,55 +44,98 @@ const Hero = () => {
     }, [isDeleting, hero.videoPlayText]);
 
     return (
-        <div className="relative w-full min-h-[1000px] bg-cover bg-center bg-no-repeat overflow-hidden"
-            style={{ backgroundImage: "url('/image/EDSA_NorthCoast03_CGI03_05 (2) (1)3107202513245505082025161147.webp1008202515570917082025120447 (1).webp')" }}>
+        <div ref={containerRef} className=" w-full min-h-[135vh] overflow-hidden " dir="ltr">
 
-            {/* Video Play Button */}
-            <div className="container mx-auto px-12 mt-32 flex items-center gap-4">
-                <button className="flex items-center justify-center px-8 py-2 border border-white rounded-full transition-all text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,1)]">
-                    <Play className="fill-white" size={32} />
-                </button>
-                <h1 className="text-2xl md:text-3xl font-bold text-white block">{text}</h1>
-            </div>
-            <div className="container mx-auto px-12 py-20 bg-transparent flex flex-col md:flex-row gap-8 items-center h-full">
-                {/* Right Side: Text & Button (80% width) */}
-                <div className="flex flex-col items-start text-right space-y-10 md:w-[80%]">
-                    <p className="text-lg md:text-xl text-gray-200 leading-relaxed">
-                        <span className="text-4xl md:text-6xl font-bold text-white block mb-4">
-                            {hero.mainTitle}
-                        </span>
-                        {hero.description}
-                    </p>
-                    <button type="button" className="px-20 py-3 bg-white hover:bg-white/90 text-black font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
-                        {hero.ctaButton}
-                        <span className="text-xl">»</span>
+            {/* Parallax Background */}
+            <motion.div
+                style={{ y, backgroundImage: "url('/image/EDSA_NorthCoast03_CGI03_05 (2) (1)3107202513245505082025161147.webp1008202515570917082025120447 (1).webp')" }}
+                className="absolute inset-0 w-full h-[135%] bg-cover bg-center bg-no-repeat z-0"
+            />
+<Header />
+            {/* Content Container */}
+            <div className="relative z-10 w-full h-full">
+                {/* Video Play Button */}
+                <div className="container mx-auto px-12 mt-32 flex items-center gap-6">
+                    <button className="flex items-center justify-center w-16 h-10 border border-white rounded-full transition-all text-white hover:bg-white hover:text-black hover:drop-shadow-[0_0_8px_rgba(255,255,255,1)] group">
+                        <Play className="fill-white group-hover:fill-black transition-colors" size={24} />
                     </button>
+                    <span className="text-2xl text-white font-dancing transform ">play video</span>
                 </div>
 
-                {/* Left Side: Two Stacked Images (20% width) */}
-                <div className="flex flex-col space-y-4 md:w-[20%]">
-                    <div className="w-full h-40 shadow-lg shadow-white/50 flex items-center justify-center text-gray-500">
-                        <Image src="/images/vector-3.svg" width={100} height={100}
-                            alt="Image 1"
-                            className="w-full h-full object-cover  rounded-lg"
-                        />
+                <div className="container mx-auto px-6 sm:px-12 py-16 md:py-20 bg-transparent flex flex-col md:flex-row items-start justify-between gap-12 lg:gap-16 h-full font-suisse">
+                    {/* Left Side: Two images stacked vertically */}
+                    <div className="flex flex-col items-start gap-4 lg:gap-6 w-full md:w-[35%] lg:w-[32%] flex-shrink-0 pt-20">
+                        {/* First Image (top one) */}
+                        <div className="w-[184px] h-[115px] shadow-2xl shadow-black/50 rounded-lg overflow-hidden flex-shrink-0 relative group cursor-pointer">
+                            <Image
+                                src="/image/ilbosco17082025121406.webp"
+                                width={184}
+                                height={115}
+                                alt="Project View 1"
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center z-10">
+                                <Image
+                                    src="/image/Solare-logo17082025130627.webp"
+                                    width={80}
+                                    height={40}
+                                    alt="Solare Logo"
+                                    className="object-contain w-20 h-auto brightness-0 invert"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Second Image (bottom one) */}
+                        <div className="w-[184px] h-[115px] shadow-2xl shadow-black/50 rounded-lg overflow-hidden flex-shrink-0 relative group cursor-pointer">
+                            <Image
+                                src="/image/ilbosco17082025121406.webp"
+                                width={184}
+                                height={115}
+                                alt="Project View 2"
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center z-10">
+                                <Image
+                                    src="/image/il-bosco-city17082025131107.webp"
+                                    width={80}
+                                    height={40}
+                                    alt="Il Bosco City Logo"
+                                    className="object-contain w-20 h-auto brightness-0 invert"
+                                />
+                            </div>
+                        </div>
                     </div>
-                    <div className="w-full h-40 shadow-lg shadow-white/50 flex items-center justify-center text-gray-500">
-                        <Image src="/images/vector-3.svg" width={100} height={100}
-                            alt="Image 2"
-                            className="w-full h-full object-cover  rounded-lg"
-                        />
+
+                    {/* Right Side: Text & Button */}
+                    <div className="flex flex-col items-start text-left space-y-8 w-full md:w-[60%] lg:w-[55%] pt-8 md:pt-0 pl-4 md:pl-8 lg:pl-16">
+                        <div className="text-lg md:text-xl leading-relaxed font-light text-white">
+                            <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal mb-6 leading-tight tracking-tight">
+                                {hero.mainTitle}
+                            </h2>
+                            <p className="max-w-3xl text-base md:text-lg lg:text-xl font-normal opacity-95">
+                                {hero.description}
+                            </p>
+                        </div>
+                        <button
+                            type="button"
+                            className="px-10 py-4 bg-white text-black font-normal text-sm rounded-full"
+                        >
+                            {hero.ctaButton}
+                        </button>
                     </div>
                 </div>
-            </div>
-            {/* Stats Section */}
-            <div className="w-full  px-12 grid grid-cols-2 md:grid-cols-4 gap-8 mt-10">
-                {hero.stats.map((stat: any, index: number) => (
-                    <div key={index} className="flex flex-col items-center md:items-start text-white">
-                        <span className="text-lg text-gray-300 mb-1">{stat.label}</span>
-                        <span className="text-4xl md:text-5xl font-bold">{stat.value}</span>
+
+                {/* Stats Section */}
+                <div className="  w-full "dir="rtl">
+                    <div className=" grid grid-cols-2 md:grid-cols-4 gap-12 border-t border-white/20 pt-8 px-8 w-[60%]">
+                        {hero.stats.map((stat: any, index: number) => (
+                            <div key={index} className="flex flex-col items-start text-white group cursor-default">
+                                <span className="text-sm font-medium tracking-widest text-gray-300/80 uppercase mb-2 group-hover:text-white transition-colors">{stat.label}</span>
+                                <span className="text-5xl md:text-6xl font-normal tracking-tighter">{stat.value}</span>
+                            </div>
+                        ))}
                     </div>
-                ))}
+                </div>
             </div>
         </div>
     );

@@ -35,4 +35,12 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .font-outfit {
+    font-family: var(--font-outfit);
+  }
+
+  .font-dancing {
+    font-family: var(--font-dancing);
+  }
 }

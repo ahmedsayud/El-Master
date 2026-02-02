@@ -33,7 +33,7 @@ const AnimatedElement = ({ children, className = "" }: { children: React.ReactNo
 
 const Header = () => {
     return (
-        <header className="fixed top-0 w-full text-white z-50 h-[85px] flex items-center font-sans tracking-tight" dir="ltr">
+        <header className="w-full text-white z-50 h-[85px] flex items-center font-sans tracking-tight" dir="ltr">
             <div className="w-[94%] mx-auto flex items-center justify-between">
 
                 {/* Left Side: Logo */}
@@ -41,9 +41,9 @@ const Header = () => {
                     <Image
                         src="/image/Misr-italia-logo17082025130341.webp"
                         alt="Misr Italia Properties"
-                        width={180}
-                        height={40}
-                        className="object-contain h-9 w-auto brightness-0 invert"
+                        width={200}
+                        height={48}
+                        className="object-contain h-14 w-auto brightness-0 invert"
                         priority
                     />
                 </div>
@@ -56,7 +56,7 @@ const Header = () => {
                                 <AnimatedElement className="px-1 py-1">
                                     <a
                                         href={link.href}
-                                        className="text-[10px] font-bold tracking-[0.05em] uppercase hover:text-white/80 transition-all duration-300 pointer-events-none"
+                                        className={`text-[9px] font-bold tracking-[0.05em] uppercase transition-all duration-300 pointer-events-none ${link.label === "HOME" ? "text-white" : "text-white/60 hover:text-white"}`}
                                     >
                                         {link.label}
                                     </a>
